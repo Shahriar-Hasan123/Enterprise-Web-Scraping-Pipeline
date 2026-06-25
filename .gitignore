@@ -30,7 +30,7 @@ Thumbs.db
 .idea/
 
 # Scrapy logs
-logs/*.log
+*.log
 
 # Scrapyd eggs
 *.egg
