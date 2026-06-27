@@ -379,6 +379,25 @@ docker run -d \
   books-scraper
 ```
 
+### Pull from Docker Hub (recommended)
+
+Instead of building locally, pull the pre-built image directly:
+
+```bash
+docker pull shahriar123/books-scraper:latest
+```
+
+Then run:
+
+```bash
+docker run -d \
+  --name books-scraper-container \
+  -p 6800:6800 \
+  -v $(pwd)/data:/app/data \
+  -v $(pwd)/database:/app/database \
+  shahriar123/books-scraper:latest
+```
+
 | Flag | Purpose |
 |------|---------|
 | `-d` | Run in background (detached mode) |
