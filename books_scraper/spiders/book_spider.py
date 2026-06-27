@@ -16,7 +16,7 @@ class BooksSpider(scrapy.Spider):
 
     def parse(self, response):
         """Extract category links from the homepage and schedule category parsing."""
-        
+
         self.logger.info("Parsing homepage to discover categories...")
 
         all_category_links = response.css("ul.nav.nav-list li ul li a")
@@ -49,7 +49,7 @@ class BooksSpider(scrapy.Spider):
 
         category_name = response.meta["category_name"]
         book_urls = response.meta.get("book_urls", [])
-        
+
         self.logger.info(f"Collecting books from category: {category_name} | URL: {response.url}")
 
         # Gets href from every book link on this page
@@ -98,9 +98,9 @@ class BooksSpider(scrapy.Spider):
         item = BookItem()
         item["title"] = response.xpath("//h1/text()").get()
         item["price"] = response.css("p.price_color::text").get()
-        item["availability"] = response.xpath("normalize-space(//p[@class='availability']/text())").get()
+        item["availability"] = response.xpath("normalize-space(//p[contains(@class, 'availability')])").get()
 
-        relative_image = response.css("div.item.active img::attr(src)").get()
+        relative_image = response.css("img.thumbnail::attr(src)").get()
         item["image_url"] = response.urljoin(relative_image)
         item["product_url"] = response.url
         item["category"] = category_name

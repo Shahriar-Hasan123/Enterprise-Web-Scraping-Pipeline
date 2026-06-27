@@ -27,7 +27,8 @@ class DataCleaningPipeline:
         # Convert availability to boolean
         raw_availability = adapter.get("availability")
         if isinstance(raw_availability, str):
-            adapter["availability"] = raw_availability.strip().lower() == "in stock"
+            normalized = raw_availability.strip().lower()
+            adapter["availability"] = "in stock" in normalized
         else:
             adapter["availability"] = bool(raw_availability)
 
