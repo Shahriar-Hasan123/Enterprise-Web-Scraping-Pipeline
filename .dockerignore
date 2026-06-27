@@ -1,0 +1,42 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Scrapy output files 
+data/
+database/
+logs/
+
+# Git
+.git/
+.gitignore
+
+# Docker itself
+Dockerfile
+.dockerignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Scrapy eggs
+*.egg
+*.egg-info/
+eggs/
+dbs/
+
+# Environment variables
+.env
+
+# README
+README.md
