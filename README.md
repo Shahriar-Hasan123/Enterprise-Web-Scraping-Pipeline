@@ -181,7 +181,7 @@ Make sure you have the following installed on your machine:
 ### Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Shahriar-Hasan123/Enterprise-Web-Scraping-Pipeline.git
 cd books_scraper
 ```
 

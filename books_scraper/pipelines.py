@@ -8,15 +8,24 @@ from itemadapter import ItemAdapter
 class DataCleaningPipeline:
     """Clean and normalize BookItem fields before storage."""
 
+    # Fields that should be normalized to title case
+    TEXT_FIELDS = ("title", "category")
+
     def process_item(self, item, spider):
         """Normalize item fields and return the cleaned item."""
         adapter = ItemAdapter(item)
 
-        # Trim whitespace from string values
+        # Trim whitespace from all string values
         for field_name in adapter.field_names():
             value = adapter.get(field_name)
             if isinstance(value, str):
                 adapter[field_name] = value.strip()
+
+        # Normalize text fields to title case
+        for field_name in self.TEXT_FIELDS:
+            value = adapter.get(field_name)
+            if isinstance(value, str):
+                adapter[field_name] = value.strip().title()
 
         # Convert price text to float
         raw_price = adapter.get("price")
