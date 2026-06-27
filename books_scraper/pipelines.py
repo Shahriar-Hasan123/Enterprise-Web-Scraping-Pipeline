@@ -42,12 +42,17 @@ class SQLitePipeline:
     DB_PATH = "database/books.db"
 
     def open_spider(self, spider):
-        """Open the SQLite DB and ensure the books table exists."""
+        """Open the SQLite DB, ensure books table exists, and clear stale data."""
+        
         spider.logger.info(f"Opening SQLite connection: {self.DB_PATH}")
-
         self.connection = sqlite3.connect(self.DB_PATH)
         self.cursor = self.connection.cursor()
         self._create_table()
+        
+        # Clear previous run's data to stay in sync with exported files
+        self.cursor.execute("DELETE FROM books")
+        self.connection.commit()
+        spider.logger.info("Cleared previous records from books table.")
 
     def _create_table(self):
         """Create the books table if it is not already present."""
